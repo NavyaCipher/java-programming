@@ -1,0 +1,37 @@
+import java.util.HashSet;
+
+public class LongestSubstringWithoutRepeating {
+    
+    // Method to calculate length of longest substring
+    public static int lengthOfLongestSubstring(String s) {
+        
+        HashSet<Character> seenChars = new HashSet<>();
+        
+        int left = 0;
+        int maxLength = 0;
+        
+        // Slide the right pointer
+        for (int right = 0; right < s.length(); right++) {
+            char currentChar = s.charAt(right);
+            
+            // If character is already in set, move left pointer and remove chars
+            while (seenChars.contains(currentChar)) {
+                seenChars.remove(s.charAt(left));
+                left++;
+            }
+            
+            // Add current character and update maxLength
+            seenChars.add(currentChar);
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+        
+        return maxLength;
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        String input = "pwwkew";
+        int result = lengthOfLongestSubstring(input);
+        System.out.println("Longest substring without repeating characters is: " + result);
+    }
+}
